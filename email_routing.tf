@@ -16,49 +16,25 @@ resource "cloudflare_record" "enable_email_routing" {
   value   = "v=spf1 include:_spf.mx.cloudflare.net ~all"
 }
 
-resource "cloudflare_email_routing_rule" "email" {
-  zone_id = var.cloudflare_zone_id
-  name    = "email"
-  enabled = true
-
-  matcher {
-    type  = "literal"
-    field = "to"
-    value = "email@${var.main_domain}"
-  }
-
-  action {
-    type  = "forward"
-    value = [var.main_email]
-  }
+locals {
+  emails = [
+    "email",
+    "cloudflare_report",
+    "twitter2"
+  ]
 }
 
-resource "cloudflare_email_routing_rule" "cloudflare_report" {
+resource "cloudflare_email_routing_rule" "emails" {
+  for_each = toset(local.emails)
+
   zone_id = var.cloudflare_zone_id
-  name    = "cloudflare_report"
+  name    = each.value
   enabled = true
 
   matcher {
     type  = "literal"
     field = "to"
-    value = "cloudflare_report@${var.main_domain}"
-  }
-
-  action {
-    type  = "forward"
-    value = [var.main_email]
-  }
-}
-
-resource "cloudflare_email_routing_rule" "twitter1" {
-  zone_id = var.cloudflare_zone_id
-  name    = "twitter1"
-  enabled = true
-
-  matcher {
-    type  = "literal"
-    field = "to"
-    value = "twitter1@${var.main_domain}"
+    value = "${each.value}@${var.main_domain}"
   }
 
   action {
