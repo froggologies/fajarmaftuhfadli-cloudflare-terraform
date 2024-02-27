@@ -13,3 +13,11 @@ resource "cloudflare_record" "www" {
   value   = "cname.vercel-dns.com"
   proxied = true
 }
+
+resource "cloudflare_record" "critterria" {
+  zone_id = var.cloudflare_zone_id
+  type    = "CNAME"
+  name    = "critterria"
+  value   = "cname.vercel-dns.com"
+  proxied = true
+}

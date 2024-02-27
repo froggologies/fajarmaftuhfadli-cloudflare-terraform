@@ -41,3 +41,20 @@ resource "cloudflare_email_routing_rule" "cloudflare_report" {
     value = [var.main_email]
   }
 }
+
+resource "cloudflare_email_routing_rule" "twitter1" {
+  zone_id = var.cloudflare_zone_id
+  name    = "twitter1"
+  enabled = true
+
+  matcher {
+    type  = "literal"
+    field = "to"
+    value = "twitter1@${var.main_domain}"
+  }
+
+  action {
+    type  = "forward"
+    value = [var.main_email]
+  }
+}
