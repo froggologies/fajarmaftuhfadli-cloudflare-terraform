@@ -21,7 +21,8 @@ locals {
     "email",
     "cloudflare_report",
     "twitter2",
-    "the_arcade16052024"
+    "the_arcade16052024",
+    "tradingview29062024"
   ]
 }
 
