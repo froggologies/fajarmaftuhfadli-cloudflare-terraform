@@ -22,7 +22,8 @@ locals {
     "cloudflare_report",
     "twitter2",
     "the_arcade16052024",
-    "tradingview29062024"
+    "tradingview29062024",
+    "tradingview02072024_02"
   ]
 }
 
